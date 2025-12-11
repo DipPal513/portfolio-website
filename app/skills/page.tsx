@@ -80,8 +80,8 @@ const FloatingIcons = ({
   parentRef,
 }: {
   skills: any[];
-  // FIX: Explicitly match the type from the parent (HTMLDivElement | null)
-  parentRef: React.RefObject<HTMLDivElement | null>; 
+  // FIX: Exact match for useRef<HTMLDivElement>(null)
+  parentRef: React.RefObject<HTMLDivElement>; 
 }) => {
   const iconsRef = useRef<HTMLDivElement>(null);
 
