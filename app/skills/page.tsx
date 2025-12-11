@@ -80,7 +80,8 @@ const FloatingIcons = ({
   parentRef,
 }: {
   skills: any[];
-  parentRef: React.RefObject<HTMLElement>;
+  // FIX: Add "| null" to the generic type
+  parentRef: React.RefObject<HTMLDivElement | null>;
 }) => {
   const iconsRef = useRef<HTMLDivElement>(null);
 
@@ -221,7 +222,6 @@ const StackCard = ({
                 <div className="text-4xl text-white group-hover:text-white/80 transition-colors">
                   {skill.icon}
                 </div>
-                {/* Skill Name logic would go here, simplified for visuals */}
               </div>
             ))}
           </div>
