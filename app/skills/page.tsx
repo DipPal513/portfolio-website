@@ -5,7 +5,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
     SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, 
     SiPostgresql, SiAwslambda, SiDocker, SiFigma, SiPrisma, 
-    SiGraphql, SiPython, SiRust, SiGreensock
+    SiGraphql, SiRust, SiGreensock,
+    SiMongodb,
+    SiMongoose,
+    SiExpress,
+    SiJavascript,
+    SiGit,
+    SiGithub
 } from 'react-icons/si';
 import { ArrowDown, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -26,7 +32,7 @@ const SECTIONS = [
             { icon: <SiNextdotjs />, size: 100, x: 20, y: 10, speed: 0.8 },
             { icon: <SiTailwindcss />, size: 60, x: -30, y: 30, speed: 1.5 },
             { icon: <SiTypescript />, size: 70, x: 30, y: -30, speed: 1.1 },
-            { icon: <SiGreensock />, size: 50, x: 0, y: 50, speed: 2 }
+            { icon: <SiJavascript />, size: 50, x: 0, y: 50, speed: 2 }
         ]
     },
     {
@@ -39,9 +45,9 @@ const SECTIONS = [
         skills: [
             { icon: <SiNodedotjs />, size: 90, x: -20, y: 0, speed: 1 },
             { icon: <SiPostgresql />, size: 80, x: 25, y: -20, speed: 1.3 },
-            { icon: <SiPrisma />, size: 70, x: -10, y: 40, speed: 0.9 },
-            { icon: <SiGraphql />, size: 60, x: 30, y: 30, speed: 1.6 },
-            { icon: <SiPython />, size: 50, x: -35, y: -35, speed: 2.2 }
+            { icon: <SiMongoose />, size: 70, x: -10, y: 40, speed: 0.9 },
+            { icon: <SiMongodb />, size: 60, x: 30, y: 30, speed: 1.6 },
+            { icon: <SiExpress />, size: 50, x: -35, y: -35, speed: 2.2 }
         ]
     },
     {
@@ -52,9 +58,9 @@ const SECTIONS = [
         color: "from-orange-500 to-red-600",
         bg: "bg-[#0a0a0a]",
         skills: [
-            { icon: <SiAwslambda />, size: 90, x: 0, y: 0, speed: 1 },
+            { icon: <SiGit />, size: 90, x: 0, y: 0, speed: 1 },
             { icon: <SiDocker />, size: 80, x: -30, y: 20, speed: 1.4 },
-            { icon: <SiRust />, size: 60, x: 30, y: -20, speed: 1.2 },
+            { icon: <SiGithub />, size: 60, x: 30, y: -20, speed: 1.2 },
             { icon: <SiFigma />, size: 70, x: -20, y: -40, speed: 0.8 }
         ]
     }
@@ -212,7 +218,7 @@ const StickyStackPage = () => {
           </Link>
           <div className="font-anton text-xl tracking-wide uppercase">About Me</div>
           <button className="group flex items-center gap-3 text-sm font-inter uppercase tracking-widest hover:text-cyan-400 transition-colors">
-              <span className="hidden md:inline">about</span>
+              <span className="hidden md:inline">SKIlls</span>
             
           </button>
       </nav>
