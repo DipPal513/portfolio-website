@@ -8,9 +8,10 @@ import { ArrowUpRight, Github, Twitter, Linkedin, Terminal, MoveRight } from 'lu
 const PROFILE_IMG = "/profile.jpg"; // Ensure this image is in your public folder
 
 const MENU_ITEMS = [
-  { id: "01", label: "Work", href: "/work" },
+  { id: "01", label: "Experience", href: "/experience" },
   { id: "02", label: "About", href: "/about" },
-  { id: "03", label: "Services", href: "/services" },
+  { id: "03", label: "Skills", href: "/skills" },
+  { id: "04", label: "projects", href: "/projects" },
   { id: "04", label: "Contact", href: "/contact" }
 ];
 

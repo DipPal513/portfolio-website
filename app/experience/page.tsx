@@ -1,7 +1,8 @@
 "use client"
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
-import { ArrowUpRight, Calendar, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Calendar, ExternalLink, ArrowLeft, Menu, Code2 } from 'lucide-react';
 
 const EXPERIENCE_DATA = [
   {
@@ -9,80 +10,52 @@ const EXPERIENCE_DATA = [
     company: "ANCOVA SOFTWARE",
     role: "Frontend Developer",
     date: "May 2023 - Sept 2024",
-    description: "Spearheaded the frontend architecture for scalable web applications. Successfully shipped and contributed to over 12+ projects. Focused heavily on performance optimization, reducing load times and improving SEO scores.",
-    tech: ["React", "Redux", "Optimization"],
+    type: "Full Time",
+    description: "Spearheaded the frontend architecture for scalable web applications. Successfully shipped and contributed to over 12+ projects including SaaS platforms and E-commerce solutions. Focused heavily on performance optimization, reducing load times by 40% and improving SEO scores significantly.",
+    tech: ["React.js", "Redux Toolkit", "Next.js", "Performance Optimization"],
     link: null
   },
   {
     id: "02",
     company: "ANCOVA SOFTWARE",
     role: "Intern Frontend Developer",
-    date: "May 2023 - Aug 2023", // Adjusted end date to logical intern period
-    description: "Kickstarted the journey by building the official website for the Department of Dance, University of Dhaka. Learned core Next.js patterns and responsive design principles.",
-    tech: ["Next.js", "Tailwind", "UI/UX"],
+    date: "May 2023 - Aug 2023",
+    type: "Internship",
+    description: "Kickstarted the journey by building the official website for the Department of Dance, University of Dhaka. Learned core Next.js patterns, responsive design principles, and collaborative Git workflows.",
+    tech: ["Next.js", "Tailwind CSS", "Framer Motion", "UI/UX"],
     link: { label: "dance.du.ac.bd", url: "https://dance.du.ac.bd" }
   }
 ];
 
-const Experience = () => {
+const ExperiencePage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // --- 1. ENTRANCE ANIMATION ---
+  // --- ENTRANCE ANIMATION ---
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title Reveal
-      gsap.from(".exp-title", { 
-        x: -50, 
-        opacity: 0, 
-        duration: 1, 
-        ease: "power3.out",
-        scrollTrigger: { trigger: containerRef.current, start: "top 80%" }
-      });
+      // Nav Fade In
+      gsap.from(".nav-element", { y: -20, opacity: 0, duration: 1, ease: "power3.out" });
 
-      // List Stagger
-      gsap.from(".exp-item", { 
-        y: 100, 
+      // Title Slide
+      gsap.from(".exp-title", { x: -50, opacity: 0, duration: 1, delay: 0.3, ease: "power3.out" });
+
+      // Cards Stagger Up
+      gsap.from(".exp-card", { 
+        y: 50, 
         opacity: 0, 
         stagger: 0.2, 
         duration: 1, 
-        ease: "power3.out",
-        delay: 0.2
+        delay: 0.5,
+        ease: "power3.out"
       });
     }, containerRef);
     return () => ctx.revert();
   }, []);
 
-  // --- 2. HOVER INTERACTION ---
-  const handleEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-    const details = target.querySelector('.exp-details');
-    const arrow = target.querySelector('.exp-arrow');
-
-    // Expand Details
-    gsap.to(details, { height: "auto", opacity: 1, marginTop: 24, duration: 0.5, ease: "power3.out" });
-    // Rotate Arrow
-    gsap.to(arrow, { rotate: 90, color: "#22d3ee", duration: 0.3 }); // Cyan color
-    // Dim siblings logic could go here if using state, but direct DOM manip is faster for lists
-    gsap.to(target, { backgroundColor: "rgba(255,255,255,0.03)", duration: 0.3 });
-  };
-
-  const handleLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-    const details = target.querySelector('.exp-details');
-    const arrow = target.querySelector('.exp-arrow');
-
-    // Collapse Details
-    gsap.to(details, { height: 0, opacity: 0, marginTop: 0, duration: 0.4, ease: "power3.in" });
-    // Reset Arrow
-    gsap.to(arrow, { rotate: 0, color: "#52525b", duration: 0.3 });
-    // Reset BG
-    gsap.to(target, { backgroundColor: "transparent", duration: 0.3 });
-  };
-
   return (
-    <div ref={containerRef} className="relative w-full min-h-screen bg-[#050505] text-white flex flex-col md:flex-row font-sans selection:bg-cyan-400 selection:text-black py-20 md:py-32">
+    <div ref={containerRef} className="relative w-full min-h-screen bg-[#050505] text-[#ededed] font-sans selection:bg-cyan-400 selection:text-black">
       
-      {/* GLOBAL FONTS (Same as Hero) */}
+      {/* FONTS */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap');
         .font-anton { fontFamily: 'Anton', sans-serif; }
@@ -90,100 +63,110 @@ const Experience = () => {
       `}</style>
 
       {/* NOISE OVERLAY */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.04] z-50 mix-blend-overlay" style={{backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`}}></div>
+      <div className="absolute inset-0 pointer-events-none opacity-[0.04] z-50 fixed mix-blend-overlay" style={{backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`}}></div>
 
-      {/* === LEFT: TITLE (Sticky) === */}
-      <div className="w-full md:w-[30%] px-8 md:px-12 mb-12 md:mb-0">
-        <div className="md:sticky md:top-32">
-           <div className="flex items-center gap-4 mb-4 opacity-50">
-                <span className="w-12 h-[1px] bg-cyan-400"></span>
-                <span className="font-inter text-xs uppercase tracking-widest text-cyan-400">Career History</span>
-           </div>
-           <h2 className="exp-title font-anton text-6xl md:text-7xl uppercase text-zinc-800 leading-none">
-             Expe<br/><span className="text-white">rience</span>
-           </h2>
+      {/* === TOP NAVIGATION BAR === */}
+      <nav className="fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-8 md:px-12 py-6 mix-blend-difference text-white">
+          
+          {/* Back Button */}
+          <Link href="/" className="nav-element group flex items-center gap-3 text-sm font-inter uppercase tracking-widest hover:text-cyan-400 transition-colors">
+              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                  <ArrowLeft size={14} />
+              </div>
+              <span className="hidden md:inline">Back to Home</span>
+          </Link>
+
+          {/* Logo / Context */}
+          <div className="nav-element font-anton text-xl tracking-wide uppercase">
+              Career History
+          </div>
+
+          {/* Menu Trigger */}
+          <button className="nav-element group flex items-center gap-3 text-sm font-inter uppercase tracking-widest hover:text-cyan-400 transition-colors">
+              <span className="hidden md:inline">Menu</span>
+              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                  <Menu size={14} />
+              </div>
+          </button>
+      </nav>
+
+
+      {/* === MAIN CONTENT === */}
+      <main className="pt-32 pb-20 px-8 md:px-12 w-full max-w-[1400px] mx-auto flex flex-col md:flex-row gap-12 md:gap-24 relative z-10">
+        
+        {/* LEFT COLUMN: TITLE (Sticky) */}
+        <div className="w-full md:w-[30%]">
+            <div className="md:sticky md:top-32">
+                <h1 className="exp-title font-anton text-7xl md:text-8xl leading-[0.85] text-zinc-800 uppercase mb-6">
+                    WORK <br/> <span className="text-white">SPACE</span>
+                </h1>
+                <p className="exp-title font-inter text-sm text-zinc-400 max-w-xs leading-relaxed">
+                    A timeline of professional milestones, contributions, and technical growth.
+                </p>
+            </div>
         </div>
-      </div>
 
-      {/* === RIGHT: TIMELINE LIST === */}
-      <div className="w-full md:w-[70%] px-8 md:px-24 flex flex-col">
-          {EXPERIENCE_DATA.map((item, index) => (
-            <div 
-                key={index}
-                className="exp-item group w-full border-t border-white/10 py-12 cursor-pointer transition-colors"
-                onMouseEnter={handleEnter}
-                onMouseLeave={handleLeave}
-            >
-                {/* --- HEADER ROW --- */}
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-0">
+        {/* RIGHT COLUMN: LIST */}
+        <div className="w-full md:w-[70%] flex flex-col gap-16 md:gap-20">
+            {EXPERIENCE_DATA.map((item, index) => (
+                <div key={index} className="exp-card group relative">
                     
-                    {/* Role & Company */}
-                    <div className="flex flex-col gap-2">
-                        <h3 className="font-anton text-4xl md:text-5xl text-zinc-400 group-hover:text-white transition-colors duration-300 uppercase">
+                    {/* Decorative Left Border Line */}
+                    <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-white/10 group-hover:bg-cyan-400 transition-colors duration-500"></div>
+
+                    <div className="pl-8 md:pl-12 py-2">
+                        {/* HEADER: DATE & TYPE */}
+                        <div className="flex items-center gap-4 mb-4 font-inter text-xs uppercase tracking-widest text-cyan-400">
+                            <span className="flex items-center gap-2"><Calendar size={12}/> {item.date}</span>
+                            <span className="w-1 h-1 bg-zinc-600 rounded-full"></span>
+                            <span>{item.type}</span>
+                        </div>
+
+                        {/* COMPANY & ROLE */}
+                        <h2 className="font-anton text-5xl md:text-6xl text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
                             {item.company}
+                        </h2>
+                        <h3 className="font-inter text-lg text-zinc-400 font-medium mb-6">
+                            {item.role}
                         </h3>
-                        <div className="flex items-center gap-3">
-                            <span className="font-inter text-sm md:text-base text-cyan-400 font-medium tracking-wide">
-                                {item.role}
-                            </span>
-                            {/* Mobile Date (Shows here on small screens) */}
-                            <span className="md:hidden font-inter text-xs text-zinc-600 bg-white/5 px-2 py-1 rounded">
-                                {item.date}
-                            </span>
-                        </div>
-                    </div>
 
-                    {/* Right Side: Date & Arrow */}
-                    <div className="flex items-center gap-8">
-                        <div className="hidden md:flex items-center gap-2 text-zinc-500 font-inter text-sm uppercase tracking-widest group-hover:text-zinc-300 transition-colors">
-                            <Calendar size={14} />
-                            {item.date}
-                        </div>
-                        <ArrowUpRight className="exp-arrow text-zinc-600 transition-all" size={32} />
-                    </div>
-                </div>
-
-                {/* --- HIDDEN DETAILS (Reveals on Hover) --- */}
-                <div className="exp-details h-0 opacity-0 overflow-hidden">
-                    <div className="max-w-2xl">
-                        <p className="font-inter text-zinc-400 leading-relaxed text-sm md:text-base mb-6">
+                        {/* DESCRIPTION (Directly Visible) */}
+                        <p className="font-inter text-zinc-300 leading-relaxed max-w-2xl mb-8">
                             {item.description}
                         </p>
-                        
-                        {/* Footer: Tech Stack & Link */}
-                        <div className="flex flex-wrap items-center gap-6">
-                            {/* Tech Tags */}
-                            <div className="flex gap-2">
+
+                        {/* FOOTER: STACK & LINKS */}
+                        <div className="flex flex-wrap items-center justify-between gap-6 border-t border-white/10 pt-6">
+                            
+                            {/* Tech Stack */}
+                            <div className="flex flex-wrap gap-2">
                                 {item.tech.map((t, i) => (
-                                    <span key={i} className="px-3 py-1 border border-white/10 rounded-full text-[10px] uppercase font-inter tracking-wider text-zinc-500">
+                                    <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded text-[11px] font-inter uppercase tracking-wide text-zinc-400 group-hover:text-white transition-colors">
                                         {t}
                                     </span>
                                 ))}
                             </div>
 
-                            {/* Optional Project Link */}
+                            {/* Link Button */}
                             {item.link && (
                                 <a 
                                     href={item.link.url} 
                                     target="_blank" 
-                                    rel="noreferrer"
-                                    className="flex items-center gap-2 text-sm font-inter text-white hover:text-cyan-400 transition-colors underline decoration-zinc-700 underline-offset-4"
+                                    className="flex items-center gap-2 font-inter text-sm font-bold uppercase tracking-wide text-white hover:text-cyan-400 transition-colors group/link"
                                 >
-                                    <ExternalLink size={14} />
-                                    {item.link.label}
+                                    <span>Visit Site</span>
+                                    <ArrowUpRight size={16} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
                                 </a>
                             )}
                         </div>
                     </div>
                 </div>
-            </div>
-          ))}
-          {/* Bottom Border */}
-          <div className="w-full h-[1px] bg-white/10"></div>
-      </div>
+            ))}
+        </div>
 
+      </main>
     </div>
   );
 };
 
-export default Experience;
+export default ExperiencePage;
