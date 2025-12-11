@@ -39,8 +39,8 @@ const AboutPage = () => {
           </Link>
           <div className="font-anton text-xl tracking-wide uppercase">About Me</div>
           <button className="group flex items-center gap-3 text-sm font-inter uppercase tracking-widest hover:text-cyan-400 transition-colors">
-              <span className="hidden md:inline">Menu</span>
-              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all"><Menu size={14} /></div>
+              <span className="hidden md:inline">about</span>
+            
           </button>
       </nav>
 

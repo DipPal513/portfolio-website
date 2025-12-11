@@ -1,122 +1,90 @@
 "use client";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
+import {projectData} from "@/public/projectdata";
+// --- YOUR DATA ---
 
-// --- DATA ---
-const PROJECTS = [
-  {
-    id: "1",
-    title: "DUITS",
-    category: "Community Platform",
-    image: "https://i.ibb.co.com/Q37cpG0G/duits.png",
-    year: "2025",
-    role: "Lead Developer",
-    client: "Dhaka University",
-    link: "https://duitsbd.org", // <--- ADD THIS
-    stack: ["Next.js", "Express.js", "Tailwind CSS", "MongoDB"],
-    desc: "A comprehensive digital ecosystem for Dhaka University's largest IT community. We re-engineered the platform to streamline event registration, member management, and tech blogging.",
-    gallery: [
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2670&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2670&auto=format&fit=crop",
-    ],
-  },
-  {
-    id: "02",
-    title: "SYNTH WAVE",
-    category: "Audio Platform",
-    video: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjEx.../giphy.mp4",
-    image:
-      "https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=2662&auto=format&fit=crop",
-    year: "2023",
-    stack: ["Next.js", "WebAudio API", "Supabase"],
-    desc: "AI-powered music generation tool for creators.",
-  },
-  {
-    id: "03",
-    title: "NOCTURNE",
-    category: "Fashion E-com",
-    video: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjEx.../giphy.mp4",
-    image:
-      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2574&auto=format&fit=crop",
-    year: "2023",
-    stack: ["Shopify", "Liquid", "GSAP"],
-    desc: "Dark-mode brutalist commerce experience.",
-  },
-  {
-    id: "04",
-    title: "QUANTUM",
-    category: "Fintech Dashboard",
-    video: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjEx.../giphy.mp4",
-    image:
-      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2664&auto=format&fit=crop",
-    year: "2022",
-    stack: ["D3.js", "React", "Python"],
-    desc: "Real-time algorithmic trading visualizer.",
-  },
-];
 
 // --- COMPONENT: PROJECT CARD ---
 const ProjectCard = ({
   project,
-  onClick,
+  index,
 }: {
   project: any;
-  onClick: () => void;
+  index: number;
 }) => {
+  // Format the index (0 -> 01, 1 -> 02)
+  const displayId = (index + 1).toString().padStart(2, "0");
+
   return (
     <div
-      onClick={onClick}
       className="relative flex-shrink-0 w-[85vw] md:w-[600px] h-[60vh] md:h-[70vh] group cursor-pointer"
     >
       {/* Number Background */}
-      <div className="absolute -top-16 -left-8 text-[120px] md:text-[200px] font-black text-white/5 font-anton z-0 transition-transform duration-500 group-hover:translate-x-4">
-        {project.id}
+      <div className="absolute -top-16 -left-8 text-[120px] md:text-[200px] font-black text-white/5 font-anton z-0 transition-transform duration-500 group-hover:translate-x-4 select-none">
+        {displayId}
       </div>
 
       {/* Main Card Container */}
-      <div className="relative w-full h-full bg-[#111] overflow-hidden border border-white/10 transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:border-white/30">
+      <Link href={`projects/${project.id}`}  className="relative block w-full h-full bg-[#111] overflow-hidden border border-white/10 transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:border-white/30">
         {/* Media Layer */}
-        <div className="absolute inset-0 w-full h-full">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover opacity-60 group-hover:opacity-0 transition-opacity duration-500"
-          />
-          {/* Fake Video for Demo (In real app, use <video loop muted autoPlay>) */}
+        <div className="absolute inset-0 w-full h-full bg-[#1a1a1a]">
+          {project.thumbnail ? (
+             <img
+             src={project.thumbnail}
+             alt={project.name}
+             className="w-full h-full object-cover opacity-60 group-hover:opacity-0 transition-opacity duration-500"
+           />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-white/10 text-4xl font-anton uppercase opacity-60 group-hover:opacity-0 transition-opacity duration-500">
+               No Image
+            </div>
+          )}
+         
+          {/* Gradient Overlay for Hover State */}
           <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-cyan-900/40 to-purple-900/40" />
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute inset-0 p-8 flex flex-col justify-end z-20">
+        <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 pointer-events-none">
           <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
             <div className="flex justify-between items-end mb-4">
-              <div>
+              <div className="max-w-[80%]">
                 <div className="text-cyan-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">
                   {project.category}
                 </div>
-                <h2 className="text-5xl md:text-7xl font-anton text-white uppercase leading-none tracking-wide">
-                  {project.title}
+                <h2 className="text-4xl md:text-5xl font-anton text-white uppercase leading-none tracking-wide line-clamp-2">
+                  {project.name}
                 </h2>
               </div>
-              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                <Link href={`/projects/${project.id}`}><ArrowUpRight className="text-white" /></Link>
+              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 pointer-events-auto hover:bg-white/20">
+                <Link href={project.liveLink || "#"} target="_blank">
+                  <ArrowUpRight className="text-white" />
+                </Link>
               </div>
             </div>
+            
             <div className="h-[1px] w-full bg-white/20 mb-4 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 delay-75" />
-            <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
-              {project.stack.map((tech: string) => (
+            
+            <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
+              {project.technologies?.slice(0, 4).map((tech: string) => (
                 <span
                   key={tech}
-                  className="text-xs text-white/60 uppercase tracking-widest"
+                  className="text-xs text-white/60 uppercase tracking-widest border border-white/10 px-2 py-1 rounded"
                 >
                   {tech}
                 </span>
               ))}
+              {project.technologies?.length > 4 && (
+                 <span className="text-xs text-white/60 uppercase tracking-widest border border-white/10 px-2 py-1 rounded">
+                 +{project.technologies.length - 4}
+               </span>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
@@ -180,14 +148,19 @@ const HorizontalGallery = () => {
     );
   }, []);
 
-  // Touch/Drag Handlers (Simplified)
+  // Touch/Drag Handlers
   const handlePointerDown = (e: React.PointerEvent) => {
     isDragging.current = true;
-    startX.current = e.clientX + scrollPos.current; // Offset by current scroll
+    startX.current = e.clientX + scrollPos.current; 
+    // Ensure text doesn't get selected while dragging
+    if(scrollContainerRef.current) {
+        scrollContainerRef.current.style.cursor = 'grabbing';
+    }
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
+    e.preventDefault();
     targetScrollPos.current = startX.current - e.clientX;
     targetScrollPos.current = Math.max(
       0,
@@ -197,6 +170,9 @@ const HorizontalGallery = () => {
 
   const handlePointerUp = () => {
     isDragging.current = false;
+    if(scrollContainerRef.current) {
+        scrollContainerRef.current.style.cursor = 'grab';
+    }
   };
 
   return (
@@ -207,13 +183,10 @@ const HorizontalGallery = () => {
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap");
         .font-anton {
-          fontfamily: "Anton", sans-serif;
+          font-family: "Anton", sans-serif;
         }
         .font-inter {
-          fontfamily: "Inter", sans-serif;
-        }
-        .ease-expo {
-          transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+          font-family: "Inter", sans-serif;
         }
       `}</style>
 
@@ -224,25 +197,25 @@ const HorizontalGallery = () => {
       <div className="absolute top-0 left-0 w-full p-8 md:p-12 flex justify-between items-start z-40 pointer-events-none">
         <div>
           <h1 className="font-anton text-4xl uppercase leading-none">
-            John
+            Dip
             <br />
-            Doe
+            Pal
           </h1>
           <div className="text-xs uppercase tracking-widest mt-2 text-white/50">
-            Full Stack Engineer
+            Full Stack Developer
           </div>
         </div>
         <div className="text-right hidden md:block">
           <div className="text-xs uppercase tracking-widest text-white/50">
-            Location
+            Projects
           </div>
-          <div className="font-bold">San Francisco, CA</div>
+          <div className="font-bold">{projectData.length} Selected Works</div>
         </div>
       </div>
 
       {/* Scroll Container */}
       <div
-        className="absolute top-0 left-0 h-full flex items-center pl-[15vw] pr-[15vw] gap-12 md:gap-24 cursor-grab active:cursor-grabbing will-change-transform"
+        className="absolute top-0 left-0 h-full flex items-center pl-[15vw] pr-[15vw] gap-12 md:gap-24 cursor-grab will-change-transform"
         ref={scrollContainerRef}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -250,24 +223,24 @@ const HorizontalGallery = () => {
         onPointerLeave={handlePointerUp}
       >
         {/* Intro Text Card */}
-        <div className="flex-shrink-0 w-[300px] flex flex-col justify-center">
+        <div className="flex-shrink-0 w-[300px] flex flex-col justify-center select-none">
           <div className="h-[1px] w-12 bg-cyan-500 mb-6"></div>
           <p className="text-xl md:text-3xl font-light leading-relaxed text-white/80">
-            Crafting digital <br />
-            <span className="text-white font-bold">experiences</span> that{" "}
+            Building digital <br />
+            <span className="text-white font-bold">solutions</span> with{" "}
             <br />
-            defy expectations.
+            Next.js & MERN.
           </p>
           <div className="mt-8 flex items-center gap-2 text-xs uppercase tracking-widest text-white/40">
             <ArrowUpRight size={14} /> Drag to explore
           </div>
         </div>
 
-        {PROJECTS.map((project) => (
+        {projectData.map((project, index) => (
           <ProjectCard
             key={project.id}
             project={project}
-           
+            index={index}
           />
         ))}
 
@@ -277,7 +250,6 @@ const HorizontalGallery = () => {
 
       {/* Progress Bar (Bottom) */}
       <div className="absolute bottom-8 left-8 right-8 h-[1px] bg-white/10 z-40">
-        {/* You can map scrollPos to width here for a real progress bar */}
         <div className="h-full bg-cyan-500 w-[25%]"></div>
       </div>
     </div>

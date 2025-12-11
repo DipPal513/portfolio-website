@@ -7,7 +7,8 @@ import {
     SiPostgresql, SiAwslambda, SiDocker, SiFigma, SiPrisma, 
     SiGraphql, SiPython, SiRust, SiGreensock
 } from 'react-icons/si';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -204,7 +205,17 @@ const StickyStackPage = () => {
                 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&display=swap');
                 body { font-family: 'Inter Tight', sans-serif; }
             `}</style>
-
+ <nav className="fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-8 md:px-12 py-6 mix-blend-difference text-white">
+          <Link href="/" className="group flex items-center gap-3 text-sm font-inter uppercase tracking-widest hover:text-cyan-400 transition-colors">
+              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all"><ArrowLeft size={14} /></div>
+              <span className="hidden md:inline">Home</span>
+          </Link>
+          <div className="font-anton text-xl tracking-wide uppercase">About Me</div>
+          <button className="group flex items-center gap-3 text-sm font-inter uppercase tracking-widest hover:text-cyan-400 transition-colors">
+              <span className="hidden md:inline">about</span>
+            
+          </button>
+      </nav>
             {/* --- HERO SECTION (Scroll Prompt) --- */}
             <div className="h-[70vh] flex flex-col items-center justify-center relative z-0">
                 <div className="text-center">
