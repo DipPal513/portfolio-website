@@ -1,47 +1,41 @@
 "use client";
+import { projectData } from "@/public/projectdata";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import React, { useCallback, useEffect, useRef } from "react";
-import {projectData} from "@/public/projectdata";
 // --- YOUR DATA ---
 
-
 // --- COMPONENT: PROJECT CARD ---
-const ProjectCard = ({
-  project,
-  index,
-}: {
-  project: any;
-  index: number;
-}) => {
+const ProjectCard = ({ project, index }: { project: any; index: number }) => {
   // Format the index (0 -> 01, 1 -> 02)
   const displayId = (index + 1).toString().padStart(2, "0");
 
   return (
-    <div
-      className="relative flex-shrink-0 w-[85vw] md:w-[600px] h-[60vh] md:h-[70vh] group cursor-pointer"
-    >
+    <div className="relative flex-shrink-0 w-[85vw] md:w-[600px] h-[60vh] md:h-[70vh] group cursor-pointer">
       {/* Number Background */}
       <div className="absolute -top-16 -left-8 text-[120px] md:text-[200px] font-black text-white/5 font-anton z-0 transition-transform duration-500 group-hover:translate-x-4 select-none">
         {displayId}
       </div>
 
       {/* Main Card Container */}
-      <Link href={`projects/${project.id}`}  className="relative block w-full h-full bg-[#111] overflow-hidden border border-white/10 transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:border-white/30">
+      <Link
+        href={`projects/${project.id}`}
+        className="relative block w-full h-full bg-[#111] overflow-hidden border border-white/10 transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:border-white/30"
+      >
         {/* Media Layer */}
         <div className="absolute inset-0 w-full h-full bg-[#1a1a1a]">
           {project.thumbnail ? (
-             <img
-             src={project.thumbnail}
-             alt={project.name}
-             className="w-full h-full object-cover opacity-60 group-hover:opacity-0 transition-opacity duration-500"
-           />
+            <img
+              src={project.thumbnail}
+              alt={project.name}
+              className="w-full h-full object-cover opacity-60 group-hover:opacity-0 transition-opacity duration-500"
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-white/10 text-4xl font-anton uppercase opacity-60 group-hover:opacity-0 transition-opacity duration-500">
-               No Image
+              No Image
             </div>
           )}
-         
+
           {/* Gradient Overlay for Hover State */}
           <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-cyan-900/40 to-purple-900/40" />
         </div>
@@ -64,9 +58,9 @@ const ProjectCard = ({
                 </Link>
               </div>
             </div>
-            
+
             <div className="h-[1px] w-full bg-white/20 mb-4 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 delay-75" />
-            
+
             <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
               {project.technologies?.slice(0, 4).map((tech: string) => (
                 <span
@@ -77,9 +71,9 @@ const ProjectCard = ({
                 </span>
               ))}
               {project.technologies?.length > 4 && (
-                 <span className="text-xs text-white/60 uppercase tracking-widest border border-white/10 px-2 py-1 rounded">
-                 +{project.technologies.length - 4}
-               </span>
+                <span className="text-xs text-white/60 uppercase tracking-widest border border-white/10 px-2 py-1 rounded">
+                  +{project.technologies.length - 4}
+                </span>
               )}
             </div>
           </div>
@@ -151,10 +145,10 @@ const HorizontalGallery = () => {
   // Touch/Drag Handlers
   const handlePointerDown = (e: React.PointerEvent) => {
     isDragging.current = true;
-    startX.current = e.clientX + scrollPos.current; 
+    startX.current = e.clientX + scrollPos.current;
     // Ensure text doesn't get selected while dragging
-    if(scrollContainerRef.current) {
-        scrollContainerRef.current.style.cursor = 'grabbing';
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.cursor = "grabbing";
     }
   };
 
@@ -170,8 +164,8 @@ const HorizontalGallery = () => {
 
   const handlePointerUp = () => {
     isDragging.current = false;
-    if(scrollContainerRef.current) {
-        scrollContainerRef.current.style.cursor = 'grab';
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.cursor = "grab";
     }
   };
 
@@ -227,8 +221,7 @@ const HorizontalGallery = () => {
           <div className="h-[1px] w-12 bg-cyan-500 mb-6"></div>
           <p className="text-xl md:text-3xl font-light leading-relaxed text-white/80">
             Building digital <br />
-            <span className="text-white font-bold">solutions</span> with{" "}
-            <br />
+            <span className="text-white font-bold">solutions</span> with <br />
             Next.js & MERN.
           </p>
           <div className="mt-8 flex items-center gap-2 text-xs uppercase tracking-widest text-white/40">
@@ -237,11 +230,7 @@ const HorizontalGallery = () => {
         </div>
 
         {projectData.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            index={index}
-          />
+          <ProjectCard key={project.id} project={project} index={index} />
         ))}
 
         {/* End Spacer */}
