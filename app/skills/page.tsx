@@ -181,7 +181,7 @@ const StackCard = ({
       ></div>
 
       {/* Floating Icons Background */}
-      <FloatingIcons skills={data.skills} parentRef={cardRef} />
+      <FloatingIcons skills={data.skills} />
 
       {/* Content Container (Glass Card) */}
       <div className="relative z-10 w-full max-w-5xl px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
