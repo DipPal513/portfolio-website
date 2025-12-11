@@ -75,14 +75,7 @@ const SECTIONS = [
 ];
 
 // --- COMPONENT: FLOATING ICONS (PARALLAX) ---
-const FloatingIcons = ({
-  skills,
-  parentRef,
-}: {
-  skills: any[];
-  // FIX: Exact match for useRef<HTMLDivElement>(null)
-  parentRef: React.RefObject<HTMLDivElement>; 
-}) => {
+const FloatingIcons = ({ skills }: { skills: any[] }) => {
   const iconsRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
