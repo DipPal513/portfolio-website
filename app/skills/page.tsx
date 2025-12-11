@@ -80,8 +80,8 @@ const FloatingIcons = ({
   parentRef,
 }: {
   skills: any[];
-  // FIX: Add "| null" to the generic type
-  parentRef: React.RefObject<HTMLDivElement | null>;
+  // FIX: Explicitly match the type from the parent (HTMLDivElement | null)
+  parentRef: React.RefObject<HTMLDivElement | null>; 
 }) => {
   const iconsRef = useRef<HTMLDivElement>(null);
 
