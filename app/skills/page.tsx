@@ -77,7 +77,7 @@ const SECTIONS = [
 // --- COMPONENT: FLOATING ICONS (PARALLAX) ---
 const FloatingIcons = ({
   skills,
-
+  parentRef,
 }: {
   skills: any[];
   parentRef: React.RefObject<HTMLElement>;
