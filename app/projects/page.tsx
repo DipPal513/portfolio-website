@@ -11,7 +11,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
   const displayId = (index + 1).toString().padStart(2, "0");
 
   return (
-    <div className="relative flex-shrink-0 w-[85vw] md:w-[600px] h-[60vh] md:h-[70vh] group cursor-pointer">
+    <div className="relative shrink-0 w-[85vw] md:w-[600px] h-[60vh] md:h-[70vh] group cursor-pointer">
       {/* Number Background */}
       <div className="absolute -top-16 -left-8 text-[120px] md:text-[200px] font-black text-white/5 font-anton z-0 transition-transform duration-500 group-hover:translate-x-4 select-none">
         {displayId}
@@ -37,7 +37,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
           )}
 
           {/* Gradient Overlay for Hover State */}
-          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-cyan-900/40 to-purple-900/40" />
+          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-linear-to-br from-cyan-900/40 to-purple-900/40" />
         </div>
 
         {/* Content Overlay */}
@@ -217,8 +217,8 @@ const HorizontalGallery = () => {
         onPointerLeave={handlePointerUp}
       >
         {/* Intro Text Card */}
-        <div className="flex-shrink-0 w-[300px] flex flex-col justify-center select-none">
-          <div className="h-[1px] w-12 bg-cyan-500 mb-6"></div>
+        <div className="shrink-0 w-[300px] flex flex-col justify-center select-none">
+          <div className="h-px w-12 bg-cyan-500 mb-6"></div>
           <p className="text-xl md:text-3xl font-light leading-relaxed text-white/80">
             Building digital <br />
             <span className="text-white font-bold">solutions</span> with <br />
@@ -234,11 +234,11 @@ const HorizontalGallery = () => {
         ))}
 
         {/* End Spacer */}
-        <div className="flex-shrink-0 w-[20vw]"></div>
+        <div className="shrink-0 w-[20vw]"></div>
       </div>
 
       {/* Progress Bar (Bottom) */}
-      <div className="absolute bottom-8 left-8 right-8 h-[1px] bg-white/10 z-40">
+      <div className="absolute bottom-8 left-8 right-8 h-px bg-white/10 z-40">
         <div className="h-full bg-cyan-500 w-[25%]"></div>
       </div>
     </div>
